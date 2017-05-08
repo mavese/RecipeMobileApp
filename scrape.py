@@ -1,6 +1,19 @@
 import urllib2
 import requests
 from bs4 import BeautifulSoup
+import json
+
+class Recipe(json.JSONEnconder):
+	title = ''
+	information = list()
+	ingredientList = list()
+	instructionList = list()
+
+	def __init__ (self, ttle, info, ingreds, instructs):
+		self.title = ttle
+		self.information = info
+		self.ingredientList = ingreds
+		self.instructionList = instructs
 
 #url = raw_input('Enter url: ')
 url = 'http://www.myrecipes.com/recipe/pork-peanut-stir-fry'
@@ -42,3 +55,6 @@ print '\nIntructions:'
 for instruction in listIndstructions:
 	print instruction + '\n'
 
+
+recipe = Recipe(title, information, listIngred, listIndstructions)
+print json.dumps(recipe)
