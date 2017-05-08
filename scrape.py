@@ -18,10 +18,11 @@ class Recipe(object):
 class MyEncoder(json.JSONEncoder):
     def default(self, obj):
         if isinstance(obj, Recipe): 
-            return { 'Title' : obj.title, 
+            return { 'Recipe' : {
+            'Title' : obj.title, 
             'Information' : obj.information, 
             'Ingredients' : obj.ingredientList,
-            'Instructions' : obj.instructionList }
+            'Instructions' : obj.instructionList} }
         return json.JSONEncoder.default(self, obj)
 
 #url = raw_input('Enter url: ')
