@@ -15,6 +15,15 @@ class Recipe(object):
 		self.ingredientList = ingreds
 		self.instructionList = instructs
 
+class MyEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, Recipe): 
+            return { 'Title' : obj.title, 
+            'Information' : obj.information, 
+            'Ingredients' : obj.ingredientList,
+            'Instructions' : obj.instructionList }
+        return json.JSONEncoder.default(self, obj)
+
 #url = raw_input('Enter url: ')
 url = 'http://www.myrecipes.com/recipe/pork-peanut-stir-fry'
 sauce = requests.get(url)
@@ -57,5 +66,5 @@ for olItem in olList.find_all('p'):
 
 
 recipe = Recipe(title, information, listIngred, listIndstructions)
-#print json.dumps(recipe)
+print json.dumps(recipe, cls=MyEncoder)
 print 'Completed.'
